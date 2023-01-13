@@ -43,7 +43,7 @@ async function startGame(){
     gameArea.innerHTML += word.join(" ")
   };
 
-word = "sambhav"
+
 
 
 // This function runs after the start button is clicked
@@ -52,16 +52,24 @@ const playGame = async() => {
     await delay(100)
     lifeline = 5
     mistakes = 0
-
+    word = "sambhav"
     // guessArea is where the input will appear
+
     guessArea = document.createElement("div")
     guessArea.id = "guessArea"
     gameArea.appendChild(guessArea)
     while (lifeline > mistakes){
-        answer = document.getElementById("answer")
-        guessArea.appendChild(answer)
-        guess = answer.innerHTML
+        const answer = prompt("Guess a letter")
+        if(word.includes(answer,0)){
+            console.log(`${answer} is correct`);
+            guessArea.innerHTML += `<br>${answer} is correct`
+            await delay(100)
+        }
+        else{
+            console.log(mistakes++);
+        }
     }
+    
     guessArea.innerHTML += "<br>Game over"
 }
 
