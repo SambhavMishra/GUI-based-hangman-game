@@ -1,3 +1,6 @@
+
+var csv = require('jquery-csv');
+
 const box = document.createElement("div")
 box.id = "box"
 document.body.appendChild(box)
@@ -86,6 +89,8 @@ const findIndices = function(string, character) {
     return [indices, changes]
 }
 
+var data = $.csv.toObjects(csv)
+
 correctAns = "thought"
 
 // This function runs after the start button is clicked
@@ -123,7 +128,7 @@ const playGame = async () => {
         }
         else {
             console.log(mistakes++);
-            guessArea.innerHTML = `<br>That's ${mistakes} mistakes`
+            guessArea.innerHTML = `<br>That's ${mistakes} mistakes`                                                            
             await delay(100)
         }
     }
@@ -131,6 +136,7 @@ const playGame = async () => {
     if (left === 0){
         gameArea.innerHTML = "<h1>Congratulations! You guessed the word</h1>"
         gameArea.innerHTML += `<br>${correctAns.toUpperCase()}`
+        gameArea.innerHTML += `<br><br><h6>Prese F5 to play again</h6>`
     }
     else {
         guessArea.innerHTML += "<br>Game over"
