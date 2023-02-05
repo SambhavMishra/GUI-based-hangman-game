@@ -1,5 +1,6 @@
 
 let guessWord
+let guessed
 
 // let play = function(guessWord) {
 //   let container = document.getElementById("container");
@@ -32,9 +33,22 @@ let play = function(guessWord) {
   // guessArea.innerHTML = guessWord
 
   game.append(guessArea)
-  ans = "_".repeat(guessWord.length).split("").join(" ")
-  guessArea.innerHTML = `<h2>${ans}</h2>`
+  guessed = "_".repeat(guessWord.length).split("").join(" ")
+  guessArea.innerHTML = `<h2>${guessed}</h2>`
   console.log(guessWord)
+
+  i = 0
+  while (i < guessWord.length){
+
+    document.addEventListener('keydown', function(event) {
+      console.log('Key pressed: ', event.key);
+      guessArea.innerHTML += event.key
+      guessed += event.key
+    });
+  }
+  console.log(guessed)
+
+
 }
 
 
