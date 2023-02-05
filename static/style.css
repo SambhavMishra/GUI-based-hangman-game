@@ -1,0 +1,63 @@
+body {
+    background: #222;
+}
+
+.container {
+    border: 4.5px solid #77ff77;
+    border-radius: 3px;
+    height: 480px;
+    width: 720px;
+    color: white;
+    justify-content: center;
+    text-align: center;
+    margin:auto;
+    position: relative;
+    transform: translateY(25%);
+    font-family: 'Times New Roman', Times, serif;
+    display: inherit;
+}
+
+.container h1 {
+    margin-top: 120px;
+}
+
+.container #start {
+    border:3px solid blue;
+    background-color: #f3f3f3;
+    height: 40px;
+    width:100px;
+    border-radius: 20px;
+}
+
+.container #start:hover {
+    color: white;
+    background-color: black;
+    transition: .15s;
+}
+
+.container #word {
+    display: none;
+    position: relative;
+}
+
+.container #guessArea {
+    height: 200px;
+    width: 300px;
+    border: 7px solid #80eeff;
+    position:relative;
+    transform: translateX(65%);
+    top: 15%;
+}
+
+
+#gameBox {
+    height: 480px;
+    width: 720px;
+    border: 5px solid #1199ff;
+    display: none;
+}
+
+.container #guessArea {
+    font-size: 28px;
+    font-weight: 800;
+}
