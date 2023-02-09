@@ -22,14 +22,16 @@ try {
 }
 
 
-let replace_ = function(original, replace, index, end) {
-  let first = original.substr(0,index);
-  let last = original.substr(index+1, end);
-  let newString = first + replace + last;
-  console.log(`First: ${first} Replace: ${replace} Index: ${index} Last: ${last}`);
-  console.log(`Newstring: ${newString}`)
-  return newString;
+let findIndices = function(str,key) {
+  let indices = [];
+  for(let i=0; i<str.length;i++){
+    if(str[i] === key) {
+      indices.push(i);
+    }
+  }
+  return Array(indices);
 }
+
 
 
 let play = function(guessWord) {
@@ -54,6 +56,7 @@ let play = function(guessWord) {
   game.append(ans)
   game.append(guessArea)
   guessed = "_".repeat(guessWord.length).split("").join(" ")
+  console.log(`${guessed} is a ${typeof(guessed)}`)
   ans.innerHTML = `<h2>${guessed}</h2>`
   console.log(guessWord)
 
@@ -64,13 +67,18 @@ let play = function(guessWord) {
       if (isLetter(key) && i < chances) {
         console.log("key pressed : ", event.key)
         guessArea.innerHTML = event.key ;
-        guessed += event.key;
-        // guessArea.innerHTML +=  guessWord.indexOf(key);
         i = i + 1;
         console.log(guessWord.includes(key));
         if (guessWord.includes(key)) {
-          end = guessWord.length-1
-          guessed = replace_(guessed, key, guessWord.indexOf(key), end);
+          end = guessWord.length-1;
+          indices = findIndices(guessWord,key)
+          console.log(`${indices} is ${typeof(indices)}`)
+          let guessedArray = Array();
+          for(let i=0; i<indices.length; i++) {
+            console.log(`${indices[i]}`);
+            
+          }
+          guessed = guessedArray.join(' ');
           ans.innerHTML = guessed;
         }
       }
