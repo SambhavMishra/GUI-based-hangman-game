@@ -5,7 +5,7 @@ let guessed
 let isLetter;
 
 
-
+// Check if the pushed button is a letter
 try {
     const LETTER_EXPRESSION = /^\p{L}$/u; // Supported by ES6+, Some bugs in FF < 78
 
@@ -21,7 +21,7 @@ try {
     };
 }
 
-
+// Find all the indices at which a letter appears in the string
 let findIndices = function(str,key) {
   let indices = [];
   for(let i=0; i<str.length;i++){
@@ -29,11 +29,11 @@ let findIndices = function(str,key) {
       indices.push(i);
     }
   }
-  return Array(indices);
+  return indices
 }
 
 
-
+// This function starts the game
 let play = function(guessWord) {
   let container = document.getElementById("container");
   if (container) {
@@ -55,10 +55,10 @@ let play = function(guessWord) {
   ans.id = "ans";
   game.append(ans)
   game.append(guessArea)
-  guessed = "_".repeat(guessWord.length).split("").join(" ")
+  guessed = "_".repeat(guessWord.length).split("").join("")
+  console.log(`${guessWord} is the guessWord`)
   console.log(`${guessed} is a ${typeof(guessed)}`)
   ans.innerHTML = `<h2>${guessed}</h2>`
-  console.log(guessWord)
 
   let i = 0;
   let chances = guessWord.length + 5;
@@ -68,17 +68,27 @@ let play = function(guessWord) {
         console.log("key pressed : ", event.key)
         guessArea.innerHTML = event.key ;
         i = i + 1;
-        console.log(guessWord.includes(key));
+        console.log(`${key} is in ${guessWord} ${guessWord.includes(key)}`);
         if (guessWord.includes(key)) {
           end = guessWord.length-1;
           indices = findIndices(guessWord,key)
           console.log(`${indices} is ${typeof(indices)}`)
           let guessedArray = Array();
-          for(let i=0; i<indices.length; i++) {
-            console.log(`${indices[i]}`);
-            
+          console.log(`guessWord: ${guessWord.length}, guessed: ${guessed.length}, guessedArray: ${guessedArray.length}`)
+          for(let i=0; i<guessWord.length; i++) {
+            if (indices.includes(i)) {
+              guessedArray[i] = guessWord[i];
+            }
+            else if (guessed[i] == '_') {
+              guessedArray[i] = '_';
+            }
+            else {
+              guessedArray[i] = guessed[i]
+            }
           }
+          console.log(`guessedArray: ${guessedArray}`)
           guessed = guessedArray.join(' ');
+          console.log("Guessed is " + guessed)
           ans.innerHTML = guessed;
         }
       }
