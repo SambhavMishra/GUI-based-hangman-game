@@ -57,7 +57,7 @@ let play = function(guessWord) {
   game.append(guessArea)
   guessed = "_".repeat(guessWord.length).split("").join("")
   console.log(`${guessWord} is the guessWord`)
-  console.log(`${guessed} is a ${typeof(guessed)}`)
+  // console.log(`${guessed} is a ${typeof(guessed)}`)
   ans.innerHTML = `<h2>${guessed}</h2>`
 
   let i = 0;
@@ -68,13 +68,13 @@ let play = function(guessWord) {
         console.log("key pressed : ", event.key)
         guessArea.innerHTML = event.key ;
         i = i + 1;
-        console.log(`${key} is in ${guessWord} ${guessWord.includes(key)}`);
+        // console.log(`${key} is in ${guessWord} ${guessWord.includes(key)}`);
         if (guessWord.includes(key)) {
           end = guessWord.length-1;
           indices = findIndices(guessWord,key)
-          console.log(`${indices} is ${typeof(indices)}`)
+          // console.log(`${indices} is ${typeof(indices)}`)
           let guessedArray = Array();
-          console.log(`guessWord: ${guessWord.length}, guessed: ${guessed.length}, guessedArray: ${guessedArray.length}`)
+          // console.log(`guessWord: ${guessWord.length}, guessed: ${guessed.length}, guessedArray: ${guessedArray.length}`)
           for(let i=0; i<guessWord.length; i++) {
             if (indices.includes(i)) {
               guessedArray[i] = guessWord[i];
@@ -86,9 +86,9 @@ let play = function(guessWord) {
               guessedArray[i] = guessed[i]
             }
           }
-          console.log(`guessedArray: ${guessedArray}`)
+          // console.log(`guessedArray: ${guessedArray}`)
           guessed = guessedArray.join(' ');
-          console.log("Guessed is " + guessed)
+          // console.log("Guessed is " + guessed)
           ans.innerHTML = guessed;
         }
       }
