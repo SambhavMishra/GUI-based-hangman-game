@@ -33,6 +33,22 @@ let findIndices = function(str,key) {
 }
 
 
+// Create as updateGuessed function
+const updateGuessed = function(original, final, indices){
+  let updated = original.split(" ")
+  // console.log(`Updated : ${updated}`);
+  for (let k = 0; k < indices.length; k++){
+      updated[indices[k]] = final[indices[k]];
+      // console.log(`Updating: ${updated}`);
+  }
+  original = updated.join(" ")
+  return original
+}
+
+
+
+
+
 // This function starts the game
 let play = function(guessWord) {
   let container = document.getElementById("container");
@@ -49,52 +65,71 @@ let play = function(guessWord) {
   guessArea.id = "guessArea"
   container.append(guessArea)
 
-  // guessArea.innerHTML = guessWord
 
   let ans = document.createElement("div");
   ans.id = "ans";
   game.append(ans)
   game.append(guessArea)
-  guessed = "_".repeat(guessWord.length).split("").join("")
-  console.log(`${guessWord} is the guessWord`)
-  // console.log(`${guessed} is a ${typeof(guessed)}`)
+  guessed = "_".repeat(guessWord.length).split("").join(" ")
+  // console.log(`${guessWord} is the guessWord`)
+  // console.log(`Length of guessWord is ${guessWord.length}`);
   ans.innerHTML = `<h2>${guessed}</h2>`
+  // console.log(typeof(guessed));
 
   let i = 0;
   let chances = guessWord.length + 5;
     document.addEventListener('keydown', function(event) {
       key = event.key;
       if (isLetter(key) && i < chances) {
-        console.log("key pressed : ", event.key)
-        guessArea.innerHTML = event.key ;
-        i = i + 1;
-        // console.log(`${key} is in ${guessWord} ${guessWord.includes(key)}`);
-        if (guessWord.includes(key)) {
-          end = guessWord.length-1;
-          indices = findIndices(guessWord,key)
-          // console.log(`${indices} is ${typeof(indices)}`)
-          let guessedArray = Array();
-          // console.log(`guessWord: ${guessWord.length}, guessed: ${guessed.length}, guessedArray: ${guessedArray.length}`)
-          for(let i=0; i<guessWord.length; i++) {
-            if (indices.includes(i)) {
-              guessedArray[i] = guessWord[i];
-            }
-            else if (guessed[i] == '_') {
-              guessedArray[i] = '_';
-            }
-            else {
-              guessedArray[i] = guessed[i]
-            }
+        // console.log("key pressed : ", event.key)
+        i++;
+
+        // Print the key pressed in guessArea
+        guessArea.innerText = event.key;
+
+        // Check if the key pressed is present in the guessWord
+        if (guessWord.includes(event.key)){
+          // console.log(`${event.key} is present in ${guessWord}`);
+
+          //  Find the indices at which the key pressed is present
+          indices = findIndices(guessWord, event.key)
+          // console.log(`The indices at which ${event.key} is present are: ${indices}`);
+
+          //  Replace the indices with correct words in guessed
+          guessed = updateGuessed(guessed, guessWord, indices)
+          // console.log(`The updated guessed is: ${guessed}`);
+
+          // Print the updated gussed into the ans
+          ans.innerText = guessed;
+
+          // If the guessed == guessWord the print winning message
+          if (guessed.split(" ").join("") === guessWord) {
+            ans.innerHTML += `<br>`
+            ans.innerHTML += `<h2>Correct answer</h2>`
+            guessArea.innerHTML = ""
+            guessArea.innerHTML += "Press f5 to play again"
+            i =  i + 15;
           }
-          // console.log(`guessedArray: ${guessedArray}`)
-          guessed = guessedArray.join(' ');
-          // console.log("Guessed is " + guessed)
-          ans.innerHTML = guessed;
         }
-      }
+        }else if (i>= guessWord.length){
+          guessArea.innerHTML = ""
+          guessArea.innerHTML += "<br>"
+          guessArea.innerHTML += "You have used all chances"
+          guessArea.innerHTML += "<br>"
+          guessArea.innerHTML += "Press f5 to play again"
+          ans.innerHTML = guessWord
+        }
     })
-  console.log(guessed)
+    
 }
+
+
+
+
+
+
+
+
 
 
 let start = function() {
