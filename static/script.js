@@ -77,12 +77,13 @@ let play = function(guessWord) {
   // console.log(typeof(guessed));
 
   let i = 0;
-  let chances = guessWord.length + 5;
+  let chance =  4;
     document.addEventListener('keydown', function(event) {
       key = event.key;
-      if (isLetter(key) && i < chances) {
+      if (isLetter(key) && i <= chance) {
+        console.log(chance - i);
         // console.log("key pressed : ", event.key)
-        i++;
+        
 
         // Print the key pressed in guessArea
         guessArea.innerText = event.key;
@@ -100,7 +101,7 @@ let play = function(guessWord) {
           // console.log(`The updated guessed is: ${guessed}`);
 
           // Print the updated gussed into the ans
-          ans.innerText = guessed;
+          ans.innerHTML = `<h2>${guessed}</h2>`;
 
           // If the guessed == guessWord the print winning message
           if (guessed.split(" ").join("") === guessWord) {
@@ -110,15 +111,21 @@ let play = function(guessWord) {
             guessArea.innerHTML += "Press f5 to play again"
             i =  i + 15;
           }
+        }else{
+          i = i + 1;
+          if (chance-i+1 >= 0){
+            chances.innerHTML = `Chances: ${chance - i+1}`
+          }
+          if(i > chance){
+            guessArea.innerHTML = ""
+            guessArea.innerHTML += "<br>"
+            guessArea.innerHTML += "You have used all chances"
+            guessArea.innerHTML += "<br>"
+            guessArea.innerHTML += "Press f5 to play again"
+            ans.innerHTML = `<h2>${guessWord}</h2>`
+          }
         }
-        }else if (i>= guessWord.length){
-          guessArea.innerHTML = ""
-          guessArea.innerHTML += "<br>"
-          guessArea.innerHTML += "You have used all chances"
-          guessArea.innerHTML += "<br>"
-          guessArea.innerHTML += "Press f5 to play again"
-          ans.innerHTML = guessWord
-        }
+      }
     })
     
 }
